@@ -1,0 +1,148 @@
+@import url(./reset.css);
+
+:root {
+--index: calc(1vw + 1vh); /*! Создание переменной для "резиновых" заголовков которые пропрционально                 уменьшаются             и           растут    при  увеличении размеров окна */
+--main-color: #ece9a1;
+--transition: transform .75s cubic-bezier(0.075, 0.500, 0.000, 1.000);  /* ! добавление переменной транзитион для плавного скролла */
+}
+
+@font-face {
+    font-family: raleway_f;
+    src: url(./../fonts/raleway-regular.woff2);
+}
+@font-face {
+    font-family: raleway_f;
+    src: url(./../fonts/raleway-black.woff2);
+    font-weight: 900;
+}
+
+body {
+    background-color: #010101;
+    
+    font-family: raleway_f, sans-serif;
+    line-height: 1.55;
+}
+
+.main-header {
+    position: relative;
+}
+
+.main-header::after {
+    content: "";
+    z-index: 100;
+    position: absolute;
+    width: 100%;
+    height: calc(var(--index) * 10); /* ! для резинового размера высоты бєкграунда  */
+    background-image: url(../img/ground.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;  /* ! для центрации бєкграунда  */
+    bottom: calc(var(--index) * -5.5);
+}
+
+.layers {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.layer {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+    will-change: transform;     /* ! Уделить свойству больше аппаратного внимание что бы ек было задержек */
+    z-index: 2;  /* ! Чтобы заголовок у которого индекс меньше скрывался на 1 и 2 слое */
+    transition: var(--transition);  /* Добавление транзиции для плавного скролла */
+}
+
+.layer__base {
+    transform: translate3d(0, calc(var(--scrollTop) / 1.6) , 0);
+    
+    z-index: 0; /* ! Чтобы заголовок у которого индекс ьротше двигался в пределах базового слоя */
+    
+}
+
+.layer__middle {
+    transform: translate3d(0, calc(var(--scrollTop) / 2.5) , 0); /* ? Paralax Effect */
+}
+
+.layer__fronr {
+    transform: translate3d(0, calc(var(--scrollTop) / 5.7) , 0); /* ? Paralax Effect */
+}
+
+.layers__header {
+   z-index: 1; /* ! Чтобы заголовок у которого индекс ьротше двигался в пределах базового слоя */
+    transform: translate3d(0, calc(var(--scrollTop) / 2) , 0); /* ! движлк для заголовка */ 
+    will-change: transform; 
+    text-transform: uppercase;
+    font-weight: 900;
+    color: var(--main-color);
+    text-shadow: 0 0 15px #927537;
+    text-shadow: 0 0 10px #857758;
+    margin-top: calc(var(--index) * -3); /* ! отрицательное значение чтоб текст поднимался а не опускался */
+    transition: var(--transition);  /* Добавление транзиции для плавного скролла */
+
+}
+.layers__caption {
+    font-size: calc(var(--index) / 1.2);  /* ! делаем меньшего размера чем титл */
+    letter-spacing: calc(var(--index) / 3.5);
+    margin-top: calc(var(--index) * -1.1); /* ! отрицательное значение чтоб текст поднимался а не опускался */
+}
+.layers__title {
+    font-size: calc(var(--index) * 2.5);  /* ! задаем резиновый фонспйз */
+    letter-spacing: calc(var(--index) / 2.5);
+}
+
+.main-artical {
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    color: var(--main-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    text-align: center;
+}
+
+.main-artical__header {
+    text-transform: uppercase;
+    font-size: calc(var(--index) * 1.1); 
+    letter-spacing: calc(var(--index) / 7.5); 
+    font-weight: 900;
+    transform: translate3d(0, calc(var(--scrollTop) / -7.5) , 0); /* ? Paralax Effect */
+    will-change: transform;
+    transition: var(--transition);  /* Добавление транзиции для плавного скролла */
+}
+
+
+
+.main-artical__text {
+    max-width: calc(var(--index) * 30);
+    font-size: calc(var(--index) * .8);
+    margin-top: calc(var(--index) * 1.25);
+    transform: translate3d(0, calc(var(--scrollTop) / -7.5) , 0);
+    will-change: transform;
+    transition: var(--transition);  /* Добавление транзиции для плавного скролла */
+}
+
+.content {
+    will-change: transform;
+}
+
+.copy {
+    position: absolute;
+    bottom: calc(var(--index) * 2.5);
+    opacity: .45;
+    letter-spacing: calc((--index) / 37.5);
+    font-size: calc((--index) * .75);
+    left: 610px;
+}
+
+/* 54;13  */
